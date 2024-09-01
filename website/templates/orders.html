@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block nav_home %}
+    <li class="p-navigation__item">
+        <a class="p-navigation__link" href="/">Home</a>
+    </li>
+{% endblock %}
+
+{% block orders %}
+    <li class="p-navigation__item is-selected">
+        <a class="p-navigation__link" href="/orders">Orders</a>
+    </li>
+{% endblock %}
+
+{% block body %}
+<div class="p-strip--dark" style="padding: 2rem;">
+    <div class="row">
+        <div class="col-8">
+            <h2 class="p-heading--xlarge">Your Orders</h2>
+            <p class="p-text--lead">All Your Purchases are listed here.</p>
+        </div>
+        <div class="col-4">
+            <img src="https://assets.ubuntu.com/v1/c7274075-compliance.svg" alt="Orders Icon" style="max-width: 100%;">
+        </div>
+    </div>
+</div>
+
+<div class="p-strip" style="padding: 2rem; background-color: #f9f9f9;">
+    {% if orders %}
+        <div class="p-card-grid" style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+            {% for order in orders %}
+                <div class="p-card" style="width: 300px; margin: 1rem;">
+                    <div class="p-card__image" style="width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; background-color: #eee;">
+                        <img src="{{ url_for('views.uploaded_file', filename=order.product.image) }}" alt="{{ order.product.name }}" style="max-width: 100%; max-height: 100%; object-fit: cover;">
+                    </div>
+                    <div class="p-card__content" style="padding: 1rem; text-align: center; flex: 1; background-color: #fff;">
+                        <h3 class="p-heading--medium" style="margin: 0 0 0.5rem; font-size: 1.25rem; color: #333;">{{ order.product.name }}</h3>
+                        <p style="margin: 0 0 0.5rem; color: #666;"><strong>Quantity:</strong> {{ order.quantity }}</p>
+                        <p style="margin: 0 0 0.5rem; font-weight: bold; color: #333;"><strong>Status:</strong> {{ order.status }}</p>
+
+                        <!-- Cancel Order Button -->
+                        {% if order.status != 'cancelled' %}
+                            <form action="{{ url_for('views.cancel_order', order_id=order.id) }}" method="post" style="margin-top: 1rem;">
+                                <button type="submit" class="p-button--negative" style="width: 100%;">Cancel Order</button>
+                            </form>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p style="text-align: center; color: #888;">You have no orders yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

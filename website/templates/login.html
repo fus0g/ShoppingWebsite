@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% from "notification.html" import render_notifications %}
+{% block nav_login %}
+<li class="p-navigation__item is-selected">
+    <a class="p-navigation__link" href="/login">Sign in</a>
+</li>
+{% endblock %}
+
+{% block body %}
+<div style="display: flex; flex-direction: column; min-height: 100vh;">
+    <!-- Main Content Area -->
+    <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; padding: 1rem;">
+        <div class="p-card" style="width: 100%; max-width: 500px; padding: 2rem;">
+            <form method="POST" style="display: flex; flex-direction: column;">
+                <h2 style="text-align: center; margin-bottom: 1.5rem;">Sign in to Shopkart</h2>
+                <label for="login_email">Email address</label>
+                <input type="email" id="login_email" name="login_email" placeholder="example@shopkart.com"
+                    autocomplete="email" class="p-form-validation__input" style="margin-bottom: 1rem;">
+                <label for="login_password">Password</label>
+                <input type="password" id="login_password" name="login_password" placeholder="******"
+                    autocomplete="current-password" class="p-form-validation__input" style="margin-bottom: 1.5rem;">
+                <button type="submit" name="submit" class="p-button--positive">Sign in</button>
+            </form>
+            <div style="text-align: center; margin-top: 2rem;">
+                <p>Don't have an account?</p>
+                <a href="/signup" class="p-button--neutral">Sign up</a>
+                <br><br> <!-- Adding some space between the buttons -->
+                <p>Are you a vendor?</p>
+                <a href="/vendor_login" class="p-button--neutral" style="font-size: 0.9rem;">Vendor Sign in</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% from "notification.html" import render_notifications %}
+
+{% block nav_login %}
+    <li class="p-navigation__item is-selected">
+        <a class="p-navigation__link" href="/login">Sign in</a>
+    </li>
+{% endblock %}
+
+{% block body %}
+<div style="display: flex; flex-direction: column; min-height: 100vh;">
+    <!-- Main Content Area -->
+    <div style="flex-grow: 1; display: flex; align-items: center; justify-content: center; padding: 1rem;">
+        <div class="p-card" style="width: 100%; max-width: 500px; padding: 2rem;">
+            <form method="POST" style="display: flex; flex-direction: column;">
+                <h2 style="text-align: center; margin-bottom: 1.5rem;">Create an Account</h2>
+
+                <!-- Name Field -->
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your Name" autocomplete="name" class="p-form-validation__input" style="margin-bottom: 1rem;">
+
+                <!-- Email Field -->
+                <label for="email">Email address</label>
+                <input type="email" id="email" name="email" placeholder="example@shopkart.com" autocomplete="email" class="p-form-validation__input" style="margin-bottom: 1rem;">
+
+                <!-- Password Field -->
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="******" autocomplete="new-password" class="p-form-validation__input" style="margin-bottom: 1.5rem;">
+
+                <!-- Confirm Password Field -->
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="******" autocomplete="new-password" class="p-form-validation__input" style="margin-bottom: 1.5rem;">
+
+                <!-- Sign-Up Button -->
+                <button type="submit" name="submit" class="p-button--positive">Sign Up</button>
+            </form>
+
+            <!-- Already have an account? -->
+            <div style="text-align: center; margin-top: 2rem;">
+                <p>Already have an account?</p>
+                <a href="/login" class="p-button--neutral">Sign in</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

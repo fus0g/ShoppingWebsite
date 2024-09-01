@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block nav_home %}
+    <li class="p-navigation__item is-selected">
+        <a class="p-navigation__link" href="/">Vendor Dashboard</a>
+    </li>
+{% endblock %}
+
+{% block body %}
+<div class="p-strip--dark" style="padding: 2rem;">
+    <div class="row">
+        <div class="col-8">
+            <h2 class="p-heading--xlarge">List Your Product Now!</h2>
+            <p class="p-text--lead">Easily list your products to reach a wider audience. Start selling today!</p>
+            <a href="/create_product" class="p-button--positive">
+                List Product
+            </a>
+        </div>
+        <div class="col-4">
+            <img src="https://assets.ubuntu.com/v1/c7274075-compliance.svg" alt="List Product Icon" style="max-width: 100%;">
+        </div>
+    </div>
+</div>
+
+<!-- Display the products -->
+<div class="p-strip" style="padding: 2rem;">
+    <h2 class="p-heading--large">Your Listed Products</h2>
+    {% if products %}
+        <div class="p-card-grid" style="display: flex; flex-wrap: wrap;">
+            {% for product in products %}
+                <div class="p-card" style="width: 300px; margin: 1rem;">
+                    <div class="p-card__image" style="text-align: center;">
+                        <img src="{{ url_for('views.uploaded_file', filename=product.image) }}" alt="{{ product.name }}" style="max-width: 100%; height: auto;">
+                    </div>
+                    <div class="p-card__content" style="padding: 1rem;">
+                        <h3 class="p-heading--medium">{{ product.name }}</h3>
+                        <p>{{ product.description }}</p>
+                        <p><strong>Price:</strong> Rs {{ product.price }}</p>
+                        <p><strong>Quantity:</strong> {{ product.quantity }}</p>
+                        <form action="{{ url_for('views.delete_product', product_id=product.id) }}" method="post" style="display: inline;">
+                            <button type="submit" class="p-button--negative">Delete</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>You have not listed any products yet.</p>
+    {% endif %}
+</div>
+{% endblock %}
